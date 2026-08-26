@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: cloud-app
-          image: alexcgodwin/cloud-app:6
+          image: alexcgodwin/cloud-app:8
           imagePullPolicy: IfNotPresent
 
           ports:

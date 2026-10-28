@@ -1,0 +1,4 @@
+
+# Python transient test files
+**/__pycache__/
+**/*.pyc

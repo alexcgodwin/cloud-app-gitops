@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cloud-app-controlled
+  namespace: argocd
+spec:
+  description: Restricted app-only GitOps promotion
+  sourceRepos:
+    - https://github.com/alexcgodwin/cloud-app-gitops.git
+  destinations:
+    - namespace: devops-preview
+      server: https://kubernetes.default.svc
+    - namespace: devops-staging
+      server: https://kubernetes.default.svc
+    - namespace: devops-prod
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+  namespaceResourceWhitelist:
+    - group: apps
+      kind: Deployment
+    - group: ""
+      kind: Service
+    - group: autoscaling
+      kind: HorizontalPodAutoscaler
+    - group: policy
+      kind: PodDisruptionBudget
+    - group: networking.k8s.io
+      kind: NetworkPolicy

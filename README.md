@@ -108,3 +108,9 @@ Sensitive credentials and access tokens are not stored in this repository. Jenki
 ## Related Repository
 
 The application source code, automated tests, Dockerfile, and Jenkins CI pipeline are maintained separately in the `jenkins-ci-pipeline` repository.
+
+## Controlled multi-environment release candidate
+
+The `releases/` tree contains separate dev, staging and production Kustomize overlays, enforced pod-security labels, non-root workloads, bounded HPA, PodDisruptionBudgets, ingress NetworkPolicies and a restricted Argo CD AppProject example. GitHub Actions renders every overlay and validates the expected controls without a live Kubernetes cluster.
+
+**Existing delivery safety:** The active Argo CD application still monitors `kubernetes/`, which is unchanged. The new overlays are not automatically synchronized to any cluster. Before onboarding, validate the image with restricted non-root securityContext, the intended ingress-controller namespace, namespace permissions and production release approvals. See the [promotion and rollback runbook](docs/GITOPS_PROMOTION.md).
